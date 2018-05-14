@@ -1,7 +1,9 @@
 <template>
     <div class="index">
+            <van-nav-bar title="首页">
+            <van-icon @click="clickSeach" name="search" slot="right" />
+            </van-nav-bar>
         <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-
             <div class="index-body">
             <swiper/>
             <article-list
@@ -18,9 +20,12 @@ function setState(store) {}
 import Swiper from "@/components/Swiper";
 import ArticleList from "@/components/ArticleList";
 import { mapState, mapActions } from "vuex";
-import { Toast, PullRefresh } from "vant";
+import { Toast, PullRefresh,NavBar,Icon } from "vant";
 import Vue from "vue";
 Vue.use(PullRefresh);
+Vue.use(NavBar);
+Vue.use(Icon);
+
 
 export default {
     name: "index",
@@ -55,6 +60,9 @@ export default {
                 .catch(err => {
                     this.$toast("刷新失败");
                 });
+        },
+        clickSeach(){
+            Toast('暂未实现')
         }
     },
     created() {
@@ -70,6 +78,9 @@ export default {
 .index {
     &-body {
         padding: 0 rem(30);
+    }
+    .van-pull-refresh{
+        margin-top: rem(12);
     }
 }
 </style>

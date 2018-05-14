@@ -1,15 +1,13 @@
 import baseAxios from "axios";
 import qs from "qs";
 import { state, actions } from "../../store/user";
-import { Toast } from 'vant';
-
+import { Toast } from "vant";
 
 const instance = baseAxios.create({
     baseURL: "https://api.xiexiaoshun.com/v1",
     timeout: 1000,
     headers: { "content-type": "application/x-www-form-urlencoded" }
 });
-
 instance.interceptors.request.use(
     config => {
         config.headers["Token"] = state().token;

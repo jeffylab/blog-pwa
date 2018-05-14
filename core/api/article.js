@@ -15,6 +15,14 @@ const getArticleList = data => {
     });
 };
 
+const getCategory = data =>{
+    return axios({
+        url:'/category',
+        method:'GET'
+    })
+}
+
 export default {
-    getArticleList
+    getArticleList,
+    getCategory
 };

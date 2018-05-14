@@ -1,9 +1,9 @@
 import articleApi from "@/core/api/article";
 
-
 export const state = () => {
     return {
-        articleList: []
+        articleList: [],
+        categoryList: []
     };
 };
 
@@ -13,6 +13,9 @@ export const mutations = {
     },
     PUSH_ARTICLE_LIST: (state, list) => {
         state.articleList.push(...list);
+    },
+    SET_CATEGORY_LIST: (state, list) => {
+        state.categoryList = list;
     }
 };
 
@@ -41,5 +44,9 @@ export const actions = {
         } catch (error) {
             return Promise.reject(error);
         }
+    },
+    getCategoryList: async ({ commit }) => {
+        const res = await articleApi.getCategory();
+        commit("SET_CATEGORY_LIST", res.data);
     }
 };

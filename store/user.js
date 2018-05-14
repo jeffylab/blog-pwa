@@ -8,7 +8,8 @@ export const state = () => {
     return {
         token: _loginfo.token || undefined,
         user_name: _loginfo.user_name || undefined,
-        userInfo: {}
+        userInfo: {},
+        imagData: "/static/img/head-2.jpg"
     };
 };
 
@@ -19,6 +20,11 @@ export const mutations = {
     },
     SET_USERINFO: (state, info) => {
         state.userInfo = info;
+    },
+    MODIFY_USERINFO: (state, data) => {
+        for (const key in data) {
+            state.userInfo[key] = data[key];
+        }
     }
 };
 
@@ -42,7 +48,7 @@ export const actions = {
     },
     findUserInfo: async ({ commit }, data) => {
         const res = await userApi.getUserInfo(data);
-        commit('SET_USERINFO',res.data[0])
+        commit("SET_USERINFO", res.data[0]);
     },
     userLogout: async ({ commit }) => {
         commit("SET_TOKEN", { token: "", user_name: "" });
@@ -63,6 +69,17 @@ export const actions = {
             return Promise.resolve(1);
         } catch (error) {
             return Promise.reject(error);
+        }
+    },
+    modifyUserInfo: async ({ commit, state }, data) => {
+        let user_info = JSON.stringify(state.userInfo);
+        commit("MODIFY_USERINFO", data);
+        try {
+            await userApi.modifyUserInfo(state.userInfo);
+            return Promise.resolve(1);
+        } catch (error) {
+            commit("MODIFY_USERINFO", JSON.parse(user_info));
+            return Promise.reject(0);
         }
     }
 };

@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="app">
         <transition
             :name="pageTransitionEffect"
             @before-enter="handleBeforeEnter"
@@ -16,7 +16,7 @@
         </transition>
         <update-toast></update-toast>
         <!--  navBar -->
-        <div class="app-bar">
+        <div v-show="barIsShow" class="app-bar">
         <van-tabbar v-model="active" @change="changeBar">
         <van-tabbar-item icon="wap-home">首页</van-tabbar-item>
         <van-tabbar-item icon="edit-data">博客</van-tabbar-item>
@@ -73,7 +73,8 @@ export default {
     data() {
         return {
             keepAlivePages,
-            active: 0
+            active: 0,
+            barIsShow: true
         };
     },
     methods: {
@@ -144,10 +145,12 @@ export default {
         }
     },
     watch: {
-        user_name: {
+        $route: {
             handler: function(val, old) {
-                if (!val) {
-                    // this.$router.push("/mine");
+                if (val.name === "tailor") {
+                    this.barIsShow = false;
+                } else {
+                    this.barIsShow = true;
                 }
             },
             immediate: true
@@ -160,7 +163,7 @@ export default {
 @import "@/assets/scss/index.scss";
 $page-transition-duration: 0.25s;
 
-#app {
+.app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -170,7 +173,7 @@ $page-transition-duration: 0.25s;
     .app-bar {
         .van-tabbar {
             height: rem(100);
-            background-color: rgba($color: #fff, $alpha: .9);
+            background-color: rgba($color: #fff, $alpha: 0.9);
         }
     }
     .app-view {

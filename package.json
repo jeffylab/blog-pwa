@@ -23,7 +23,8 @@
         "lavas-core-vue": "^1.1.11",
         "normalize.css": "^7.0.0",
         "qs": "^6.5.2",
-        "vant": "^1.1.2"
+        "vant": "^1.1.2",
+        "vue-cropper": "^0.2.9"
     },
     "devDependencies": {
         "autoprefixer": "^7.2.5",

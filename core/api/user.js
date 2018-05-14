@@ -24,9 +24,18 @@ const getUserInfo = (data)=>{
     })
 }
 
+const modifyUserInfo = data=>{
+    return axios({
+     url:'/user',
+     method:"PUT",
+     data   
+    })
+}
+
 
 export default {
     login,
     register,
-    getUserInfo
+    getUserInfo,
+    modifyUserInfo
 }
